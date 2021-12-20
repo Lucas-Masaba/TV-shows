@@ -19,3 +19,13 @@
 .logo img {
   height: 60px;
 }
+
+footer {
+  border: solid #000 1px;
+  padding-left: 2%;
+  font-weight: bold;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
