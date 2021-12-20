@@ -1,3 +1,21 @@
-body {
-  background-color: bisque;
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+.header-list {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+}
+
+.header-list a {
+  text-decoration: none;
+}
+
+.header-list li {
+  list-style: none;
+}
+
+.logo img {
+  height: 60px;
 }
