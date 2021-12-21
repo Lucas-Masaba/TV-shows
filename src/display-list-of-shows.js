@@ -1,7 +1,7 @@
 const displayListOfShows = document.querySelector('.display-list-of-shows');
 
 const fetchDataFromAPI = async () => {
-  const response = await fetch(`https://api.tvmaze.com/shows`);
+  const response = await fetch('https://api.tvmaze.com/shows');
   const getResult = await response.json();
 
   const resultArray = getResult.slice(0, 6);
@@ -12,7 +12,6 @@ const fetchDataFromAPI = async () => {
                     <button>Comments</button>
                   </div>`).join('');
   displayListOfShows.innerHTML = values;
-
 };
 
 export default { fetchDataFromAPI };
