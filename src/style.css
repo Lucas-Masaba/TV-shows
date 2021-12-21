@@ -20,6 +20,17 @@
   height: 60px;
 }
 
+.display-list-of-shows {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 10%;
+}
+
+.display-show {
+  width: 33%;
+  padding-bottom: 40px;
+}
+
 footer {
   border: solid #000 1px;
   padding-left: 2%;
