@@ -1,7 +1,7 @@
 const displayListOfShows = document.querySelector('.display-list-of-shows');
 
 // Unique identifier of the created app
-const appId = 'ZrzK7KRIzPnG4aqv9ic4';
+const appId = 'kUgCgfStndTaZOctty77';
 
 const fetchDataFromAPI = async () => {
   const TVResponse = await fetch('https://api.tvmaze.com/shows');
@@ -15,7 +15,7 @@ const fetchDataFromAPI = async () => {
   const values = showArray.map((result) => `<div class="display-show">
     <img src="${result.image.medium}" alt="">
     <p>${result.name}</p>
-    <p>${getLikeResult.filter((like) => like.item_id === result.id)[0].likes} likes</p>
+    <p>${getLikeResult.filter((like) => parseInt((like.item_id), 10) === parseInt((result.id), 10))[0].likes} likes</p>
     <button>Comments</button>
     </div>`).join('');
 
