@@ -13,4 +13,16 @@ const fetchInvolvementAPI = async () => {
   return getLikeResult;
 };
 
-export default { fetchTVAPI, fetchInvolvementAPI };
+const submitLike = async (newLike) => {
+  await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${appId}/likes`, {
+    method: 'POST',
+    body: JSON.stringify({
+      item_id: newLike,
+    }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  });
+};
+
+export default { fetchTVAPI, fetchInvolvementAPI, submitLike };
