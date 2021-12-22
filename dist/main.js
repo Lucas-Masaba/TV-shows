@@ -16,7 +16,7 @@
   \*************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, \"* {\\r\\n  font-family: 'Poppins', sans-serif;\\r\\n}\\r\\n\\r\\n.header-list {\\r\\n  display: flex;\\r\\n  justify-content: space-evenly;\\r\\n  align-items: baseline;\\r\\n}\\r\\n\\r\\n.header-list a {\\r\\n  text-decoration: none;\\r\\n}\\r\\n\\r\\n.header-list li {\\r\\n  list-style: none;\\r\\n}\\r\\n\\r\\n.logo img {\\r\\n  height: 60px;\\r\\n}\\r\\n\", \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://webpack_project/./src/style.css?./node_modules/css-loader/dist/cjs.js");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, \"* {\\r\\n  font-family: 'Poppins', sans-serif;\\r\\n}\\r\\n\\r\\n.header-list {\\r\\n  display: flex;\\r\\n  justify-content: space-evenly;\\r\\n  align-items: baseline;\\r\\n}\\r\\n\\r\\n.header-list a {\\r\\n  text-decoration: none;\\r\\n}\\r\\n\\r\\n.header-list li {\\r\\n  list-style: none;\\r\\n}\\r\\n\\r\\n.logo img {\\r\\n  height: 60px;\\r\\n}\\r\\n\\r\\n.display-list-of-shows {\\r\\n  display: flex;\\r\\n  flex-wrap: wrap;\\r\\n  margin: 0 10%;\\r\\n}\\r\\n\\r\\n.display-show {\\r\\n  width: 33%;\\r\\n  padding-bottom: 40px;\\r\\n}\\r\\n\\r\\nfooter {\\r\\n  border: solid #000 1px;\\r\\n  padding-left: 2%;\\r\\n  font-weight: bold;\\r\\n  position: fixed;\\r\\n  left: 0;\\r\\n  right: 0;\\r\\n  bottom: 0;\\r\\n}\\r\\n\\r\\n.hide {\\r\\n  display: none;\\r\\n}\", \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://webpack_project/./src/style.css?./node_modules/css-loader/dist/cjs.js");
 
 /***/ }),
 
@@ -110,33 +110,43 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 
 /***/ }),
 
-/***/ "./src/UI.js":
-/*!*******************!*\
-  !*** ./src/UI.js ***!
-  \*******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _tvm_api_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tvm_api.png */ \"./src/tvm_api.png\");\n\r\nconst logo = document.querySelector('.logo')\r\n\r\nconst headerLogo = () => {\r\n    const myIcon = new Image();\r\n    myIcon.src = _tvm_api_png__WEBPACK_IMPORTED_MODULE_0__;\r\n    return logo.append(myIcon);\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({ headerLogo });\n\n//# sourceURL=webpack://webpack_project/./src/UI.js?");
-
-/***/ }),
-
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _UI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UI.js */ \"./src/UI.js\");\n\r\n\r\n\r\n_UI_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"].headerLogo();\n\n//# sourceURL=webpack://webpack_project/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_UI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/UI.js */ \"./src/modules/UI.js\");\n\n\n\ndocument.addEventListener('DOMContentLoaded', async () => {\n  _modules_UI_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"].headerLogo();\n  (0,_modules_UI_js__WEBPACK_IMPORTED_MODULE_1__.displayShows)();\n  (0,_modules_UI_js__WEBPACK_IMPORTED_MODULE_1__.openPopUpWindow)();\n  (0,_modules_UI_js__WEBPACK_IMPORTED_MODULE_1__.closePopUp)();\n});\n\n\n//# sourceURL=webpack://webpack_project/./src/index.js?");
 
 /***/ }),
 
-/***/ "./src/tvm_api.png":
-/*!*************************!*\
-  !*** ./src/tvm_api.png ***!
-  \*************************/
+/***/ "./src/modules/APIhandler.js":
+/*!***********************************!*\
+  !*** ./src/modules/APIhandler.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// Unique identifier of the created app\nconst appId = 'kUgCgfStndTaZOctty77';\n\nconst fetchTVAPI = async () => {\n  const TVResponse = await fetch('https://api.tvmaze.com/shows');\n  const getShowResult = await TVResponse.json();\n  return getShowResult.slice(0, 6);\n};\n\nconst fetchInvolvementAPI = async () => {\n  const involvementAPIResponse = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${appId}/likes`);\n  const getLikeResult = await involvementAPIResponse.json();\n  return getLikeResult;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({ fetchTVAPI, fetchInvolvementAPI });\n\n//# sourceURL=webpack://webpack_project/./src/modules/APIhandler.js?");
+
+/***/ }),
+
+/***/ "./src/modules/UI.js":
+/*!***************************!*\
+  !*** ./src/modules/UI.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"displayShows\": () => (/* binding */ displayShows),\n/* harmony export */   \"openPopUpWindow\": () => (/* binding */ openPopUpWindow),\n/* harmony export */   \"closePopUp\": () => (/* binding */ closePopUp),\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _APIhandler_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./APIhandler.js */ \"./src/modules/APIhandler.js\");\n/* harmony import */ var _tvm_api_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tvm_api.png */ \"./src/modules/tvm_api.png\");\n\n\n\nconst logo = document.querySelector('.logo');\nconst displayListOfShows = document.querySelector('.display-list-of-shows');\n\nconst popUp = document.querySelector('.pop-up');\nconst showsContainer = document.querySelector('.shows-container');\n\nconst headerLogo = () => {\n  const myIcon = new Image();\n  myIcon.src = _tvm_api_png__WEBPACK_IMPORTED_MODULE_1__;\n  return logo.append(myIcon);\n};\n\nconst displayShows = async () => {\n  const showData = await _APIhandler_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"].fetchTVAPI();\n  const involveData = await _APIhandler_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"].fetchInvolvementAPI();\n\n  const values = showData\n    .map(\n      (result) => `<div class=\"display-show\">\n    <img src=\"${result.image.medium}\" alt=\"\">\n    <p>${result.name}</p>\n    <p>${\n  involveData.filter(\n    (like) => parseInt(like.item_id, 10) === parseInt(result.id, 10),\n  )[0].likes\n} likes</p>\n    <button id=${result.id} class=\"comment-btn\">Comments</button>\n    </div>`,\n    )\n    .join('');\n\n  displayListOfShows.innerHTML = values;\n};\n\nconst openPopUpWindow = () => {\n  const selector = '.comment-btn';\n  document.addEventListener('click', async (e) => {\n    const showData = await _APIhandler_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"].fetchTVAPI();\n    const el = e.target;\n    if (!el.matches(selector)) {\n      return;\n    }\n    showsContainer.classList.add('hide');\n    popUp.classList.remove('hide');\n    const selectedShow = showData.filter((data) => data.id === Number(e.target.id))[0];\n    popUp.innerHTML = `<div class=\"display-show\">\n    <button type=\"button\" data-close-button class=\"close-button\">&times;</button>\n         <div>  \n         <img src=\"${selectedShow.image.medium}\" alt=\"\">\n           <p>${selectedShow.name}</p>\n         </div>\n           <div>\n             <p>${selectedShow.language}</p>\n             <p>${selectedShow.premiered}</p>\n           </div>\n           <di>\n           <p>${selectedShow.runtime}</p>\n           <p>${selectedShow.rating.average}</p>\nselectedShow       </div>`;\n  });\n};\n\nconst closePopUp = () => {\n  const selector2 = '.close-button';\n\n  document.addEventListener('click', async (e) => {\n    const el = e.target;\n    if (!el.matches(selector2)) {\n      return;\n    }\n    showsContainer.classList.remove('hide');\n    popUp.classList.add('hide');\n  });\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({ headerLogo });\n\n//# sourceURL=webpack://webpack_project/./src/modules/UI.js?");
+
+/***/ }),
+
+/***/ "./src/modules/tvm_api.png":
+/*!*********************************!*\
+  !*** ./src/modules/tvm_api.png ***!
+  \*********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"2dcb6eb7bb62fd8e8df4.png\";\n\n//# sourceURL=webpack://webpack_project/./src/tvm_api.png?");
+eval("module.exports = __webpack_require__.p + \"2dcb6eb7bb62fd8e8df4.png\";\n\n//# sourceURL=webpack://webpack_project/./src/modules/tvm_api.png?");
 
 /***/ })
 

@@ -40,3 +40,7 @@ footer {
   right: 0;
   bottom: 0;
 }
+
+.hide {
+  display: none;
+}
