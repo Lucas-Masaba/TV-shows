@@ -71,14 +71,14 @@ const addNewLike = () => {
 
 const showCount = async () => {
   const numberOfShows = await fetchData.fetchTVAPI();
-  showCounter.innerHTML = `Shows(${numberOfShows.length})`
+  showCounter.innerHTML = `Shows(${numberOfShows.length})`;
   return numberOfShows.length;
-}
+};
 
 export const displayShows = async () => {
   const showData = await fetchData.fetchTVAPI();
   const involveData = await fetchData.fetchInvolvementAPI();
-  
+
   const values = showData
     .map(
       (result) => `<div class="display-show">
