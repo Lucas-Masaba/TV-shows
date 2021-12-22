@@ -59,6 +59,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 selectedShow       </div>`;
   });
 
-  
+  const selector2 = '.close-button'
+
+  document.addEventListener('click', async (e) => {
+    
+    const el = e.target;
+    if (!el.matches(selector2)) {
+        return;
+    }
+    showsContainer.classList.remove('hide')
+    
+  });
 
 }());
