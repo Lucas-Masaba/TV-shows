@@ -3,6 +3,7 @@ import tvm from './tvm_api.png';
 
 const logo = document.querySelector('.logo');
 const displayListOfShows = document.querySelector('.display-list-of-shows');
+const showCounter = document.querySelector('.show-counter');
 
 const popUp = document.querySelector('.pop-up');
 const showsContainer = document.querySelector('.shows-container');
@@ -68,10 +69,16 @@ const addNewLike = () => {
   });
 };
 
+const showCount = async () => {
+  const numberOfShows = await fetchData.fetchTVAPI();
+  showCounter.innerHTML = `Shows(${numberOfShows.length})`
+  return numberOfShows.length;
+}
+
 export const displayShows = async () => {
   const showData = await fetchData.fetchTVAPI();
   const involveData = await fetchData.fetchInvolvementAPI();
-
+  
   const values = showData
     .map(
       (result) => `<div class="display-show">
@@ -91,6 +98,7 @@ export const displayShows = async () => {
   openPopUpWindow();
   closePopUp();
   addNewLike();
+  showCount();
 };
 
 export default { headerLogo };
