@@ -55,20 +55,6 @@ const closePopUp = () => {
   });
 };
 
-const addNewLike = () => {
-  const likeSelector = '.like-heart';
-  document.addEventListener('click', async (e) => {
-    const el = e.target;
-    if (!el.matches(likeSelector)) {
-      return;
-    }
-    await fetchData.submitLike(e.target.id);
-
-    /* eslint-disable no-use-before-define */
-    displayShows();
-  });
-};
-
 const showCount = async () => {
   const numberOfShows = await fetchData.fetchTVAPI();
   showCounter.innerHTML = `Shows(${numberOfShows.length})`;
@@ -85,9 +71,7 @@ export const displayShows = async () => {
     <img src="${result.image.medium}" alt="">
     <p>${result.name} <a id=${result.id} class="like-heart" href="#">&#9825;</a></p>
     <p>${
-  involveData.filter(
-    (like) => parseInt(like.item_id, 10) === parseInt(result.id, 10),
-  )[0].likes
+  involveData.filter((like) => parseInt(like.item_id, 10) === parseInt(result.id, 10))[0].likes
 } likes</p>
     <button id=${result.id} class="comment-btn">Comments</button>
     </div>`,
@@ -97,8 +81,19 @@ export const displayShows = async () => {
   displayListOfShows.innerHTML = values;
   openPopUpWindow();
   closePopUp();
-  addNewLike();
   showCount();
 };
+
+(function Likes() {
+  const selector = '.like-heart';
+  document.addEventListener('click', async (e) => {
+    const el = e.target;
+    if (!el.matches(selector)) {
+      return;
+    }
+    await fetchData.submitLike(el.id);
+    displayShows();
+  });
+}());
 
 export default { headerLogo };
