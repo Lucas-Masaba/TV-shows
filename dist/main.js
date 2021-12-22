@@ -110,43 +110,43 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 
 /***/ }),
 
-/***/ "./src/UI.js":
-/*!*******************!*\
-  !*** ./src/UI.js ***!
-  \*******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"displayShows\": () => (/* binding */ displayShows),\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _tvm_api_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tvm_api.png */ \"./src/tvm_api.png\");\n\n\nconst logo = document.querySelector('.logo');\n\nconst displayListOfShows = document.querySelector(\".display-list-of-shows\");\n\nconst headerLogo = () => {\n  const myIcon = new Image();\n  myIcon.src = _tvm_api_png__WEBPACK_IMPORTED_MODULE_0__;\n  return logo.append(myIcon);\n};\n\nconst displayShows = async () => {\n  const showData = await fetchData.fetchTVAPI();\n  const involveData = await fetchData.fetchInvolvementAPI();\n\n  const values = showData\n    .map(\n      (result) => `<div class=\"display-show\">\n    <img src=\"${result.image.medium}\" alt=\"\">\n    <p>${result.name}</p>\n    <p>${\n      involveData.filter(\n        (like) => parseInt(like.item_id, 10) === parseInt(result.id, 10)\n      )[0].likes\n    } likes</p>\n    <button id=${result.id} class=\"comment-btn\">Comments</button>\n    </div>`\n    )\n    .join(\"\");\n\n  displayListOfShows.innerHTML = values;\n}\n\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({ headerLogo });\n\n//# sourceURL=webpack://webpack_project/./src/UI.js?");
-
-/***/ }),
-
-/***/ "./src/display-list-of-shows.js":
-/*!**************************************!*\
-  !*** ./src/display-list-of-shows.js ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// Unique identifier of the created app\r\nconst appId = 'kUgCgfStndTaZOctty77';\r\n\r\nconst fetchTVAPI = async () => {\r\n  const TVResponse = await fetch('https://api.tvmaze.com/shows');\r\n  const getShowResult = await TVResponse.json();\r\n  return getShowResult.slice(0, 6);\r\n};\r\n\r\nconst fetchInvolvementAPI = async () => {\r\n  const involvementAPIResponse = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${appId}/likes`);\r\n  const getLikeResult = await involvementAPIResponse.json();\r\n  return getLikeResult;\r\n};\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({ fetchTVAPI, fetchInvolvementAPI });\n\n//# sourceURL=webpack://webpack_project/./src/display-list-of-shows.js?");
-
-/***/ }),
-
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _UI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UI.js */ \"./src/UI.js\");\n/* harmony import */ var _display_list_of_shows_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./display-list-of-shows.js */ \"./src/display-list-of-shows.js\");\n\r\n\r\n\r\n\r\n// const displayListOfShows = document.querySelector(\".display-list-of-shows\");\r\n\r\nconst popUp = document.querySelector('.pop-up');\r\nconst showsContainer = document.querySelector('.shows-container');\r\n\r\n\r\ndocument.addEventListener(\"DOMContentLoaded\", async () => {\r\n  _UI_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"].headerLogo();\r\n  (0,_UI_js__WEBPACK_IMPORTED_MODULE_1__.displayShows)();\r\n  // const showData = await fetchData.fetchTVAPI();\r\n  // const involveData = await fetchData.fetchInvolvementAPI();\r\n\r\n  // const values = showData\r\n  //   .map(\r\n  //     (result) => `<div class=\"display-show\">\r\n  //   <img src=\"${result.image.medium}\" alt=\"\">\r\n  //   <p>${result.name}</p>\r\n  //   <p>${\r\n  //     involveData.filter(\r\n  //       (like) => parseInt(like.item_id, 10) === parseInt(result.id, 10)\r\n  //     )[0].likes\r\n  //   } likes</p>\r\n  //   <button id=${result.id} class=\"comment-btn\">Comments</button>\r\n  //   </div>`\r\n  //   )\r\n  //   .join(\"\");\r\n\r\n  // displayListOfShows.innerHTML = values;\r\n\r\n});\r\n\r\n(function () {\r\n  const selector = '.comment-btn';\r\n  document.addEventListener('click', async (e) => {\r\n    const showData = await _display_list_of_shows_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].fetchTVAPI();\r\n    const involveData = await _display_list_of_shows_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].fetchInvolvementAPI();\r\n    const el = e.target;\r\n    if (!el.matches(selector)) {\r\n        return;\r\n    }\r\n    showsContainer.classList.add('hide')\r\n    popUp.classList.remove('hide')\r\n    const selectedShow = showData.filter((data) => data.id == e.target.id)[0];\r\n    popUp.innerHTML = `<div class=\"display-show\">\r\n    <button type=\"button\" data-close-button class=\"close-button\">&times;</button>\r\n         <div>  \r\n         <img src=\"${selectedShow.image.medium}\" alt=\"\">\r\n           <p>${selectedShow.name}</p>\r\n         </div>\r\n           <div>\r\n             <p>${selectedShow.language}</p>\r\n             <p>${selectedShow.premiered}</p>\r\n           </div>\r\n           <di>\r\n           <p>${selectedShow.runtime}</p>\r\n           <p>${selectedShow.rating.average}</p>\r\nselectedShow       </div>`;\r\n  });\r\n\r\n  const selector2 = '.close-button'\r\n\r\n  document.addEventListener('click', async (e) => {\r\n    \r\n    const el = e.target;\r\n    if (!el.matches(selector2)) {\r\n        return;\r\n    }\r\n    showsContainer.classList.remove('hide')\r\n    popUp.classList.add('hide')\r\n  });\r\n\r\n}());\r\n\n\n//# sourceURL=webpack://webpack_project/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_UI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/UI.js */ \"./src/modules/UI.js\");\n\n\n\ndocument.addEventListener('DOMContentLoaded', async () => {\n  _modules_UI_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"].headerLogo();\n  (0,_modules_UI_js__WEBPACK_IMPORTED_MODULE_1__.displayShows)();\n  (0,_modules_UI_js__WEBPACK_IMPORTED_MODULE_1__.openPopUpWindow)();\n  (0,_modules_UI_js__WEBPACK_IMPORTED_MODULE_1__.closePopUp)();\n});\n\n\n//# sourceURL=webpack://webpack_project/./src/index.js?");
 
 /***/ }),
 
-/***/ "./src/tvm_api.png":
-/*!*************************!*\
-  !*** ./src/tvm_api.png ***!
-  \*************************/
+/***/ "./src/modules/APIhandler.js":
+/*!***********************************!*\
+  !*** ./src/modules/APIhandler.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// Unique identifier of the created app\nconst appId = 'kUgCgfStndTaZOctty77';\n\nconst fetchTVAPI = async () => {\n  const TVResponse = await fetch('https://api.tvmaze.com/shows');\n  const getShowResult = await TVResponse.json();\n  return getShowResult.slice(0, 6);\n};\n\nconst fetchInvolvementAPI = async () => {\n  const involvementAPIResponse = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${appId}/likes`);\n  const getLikeResult = await involvementAPIResponse.json();\n  return getLikeResult;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({ fetchTVAPI, fetchInvolvementAPI });\n\n//# sourceURL=webpack://webpack_project/./src/modules/APIhandler.js?");
+
+/***/ }),
+
+/***/ "./src/modules/UI.js":
+/*!***************************!*\
+  !*** ./src/modules/UI.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"displayShows\": () => (/* binding */ displayShows),\n/* harmony export */   \"openPopUpWindow\": () => (/* binding */ openPopUpWindow),\n/* harmony export */   \"closePopUp\": () => (/* binding */ closePopUp),\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _APIhandler_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./APIhandler.js */ \"./src/modules/APIhandler.js\");\n/* harmony import */ var _tvm_api_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tvm_api.png */ \"./src/modules/tvm_api.png\");\n\n\n\nconst logo = document.querySelector('.logo');\nconst displayListOfShows = document.querySelector('.display-list-of-shows');\n\nconst popUp = document.querySelector('.pop-up');\nconst showsContainer = document.querySelector('.shows-container');\n\nconst headerLogo = () => {\n  const myIcon = new Image();\n  myIcon.src = _tvm_api_png__WEBPACK_IMPORTED_MODULE_1__;\n  return logo.append(myIcon);\n};\n\nconst displayShows = async () => {\n  const showData = await _APIhandler_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"].fetchTVAPI();\n  const involveData = await _APIhandler_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"].fetchInvolvementAPI();\n\n  const values = showData\n    .map(\n      (result) => `<div class=\"display-show\">\n    <img src=\"${result.image.medium}\" alt=\"\">\n    <p>${result.name}</p>\n    <p>${\n  involveData.filter(\n    (like) => parseInt(like.item_id, 10) === parseInt(result.id, 10),\n  )[0].likes\n} likes</p>\n    <button id=${result.id} class=\"comment-btn\">Comments</button>\n    </div>`,\n    )\n    .join('');\n\n  displayListOfShows.innerHTML = values;\n};\n\nconst openPopUpWindow = () => {\n  const selector = '.comment-btn';\n  document.addEventListener('click', async (e) => {\n    const showData = await _APIhandler_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"].fetchTVAPI();\n    const el = e.target;\n    if (!el.matches(selector)) {\n      return;\n    }\n    showsContainer.classList.add('hide');\n    popUp.classList.remove('hide');\n    const selectedShow = showData.filter((data) => data.id === Number(e.target.id))[0];\n    popUp.innerHTML = `<div class=\"display-show\">\n    <button type=\"button\" data-close-button class=\"close-button\">&times;</button>\n         <div>  \n         <img src=\"${selectedShow.image.medium}\" alt=\"\">\n           <p>${selectedShow.name}</p>\n         </div>\n           <div>\n             <p>${selectedShow.language}</p>\n             <p>${selectedShow.premiered}</p>\n           </div>\n           <di>\n           <p>${selectedShow.runtime}</p>\n           <p>${selectedShow.rating.average}</p>\nselectedShow       </div>`;\n  });\n};\n\nconst closePopUp = () => {\n  const selector2 = '.close-button';\n\n  document.addEventListener('click', async (e) => {\n    const el = e.target;\n    if (!el.matches(selector2)) {\n      return;\n    }\n    showsContainer.classList.remove('hide');\n    popUp.classList.add('hide');\n  });\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({ headerLogo });\n\n//# sourceURL=webpack://webpack_project/./src/modules/UI.js?");
+
+/***/ }),
+
+/***/ "./src/modules/tvm_api.png":
+/*!*********************************!*\
+  !*** ./src/modules/tvm_api.png ***!
+  \*********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"2dcb6eb7bb62fd8e8df4.png\";\n\n//# sourceURL=webpack://webpack_project/./src/tvm_api.png?");
+eval("module.exports = __webpack_require__.p + \"2dcb6eb7bb62fd8e8df4.png\";\n\n//# sourceURL=webpack://webpack_project/./src/modules/tvm_api.png?");
 
 /***/ })
 
