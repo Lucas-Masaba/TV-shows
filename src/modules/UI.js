@@ -6,6 +6,7 @@ const displayListOfShows = document.querySelector('.display-list-of-shows');
 const showCounter = document.querySelector('.show-counter');
 
 const popUp = document.querySelector('.pop-up');
+const commentPopUp = document.querySelector('.comment');
 const showsContainer = document.querySelector('.shows-container');
 
 const headerLogo = () => {
@@ -18,13 +19,16 @@ const openPopUpWindow = () => {
   const selector = '.comment-btn';
   document.addEventListener('click', async (e) => {
     const showData = await fetchData.fetchTVAPI();
+    const commentData = await fetchData.fetchInvolvementAPIcomments(e.target.id);
     const el = e.target;
     if (!el.matches(selector)) {
       return;
     }
     showsContainer.classList.add('hide');
     popUp.classList.remove('hide');
+    commentPopUp.classList.remove('hide');
     const selectedShow = showData.filter((data) => data.id === Number(e.target.id))[0];
+
     popUp.innerHTML = `<div class="display-show">
       <button type="button" data-close-button class="close-button">&times;</button>
          <div>  
@@ -32,12 +36,16 @@ const openPopUpWindow = () => {
            <p>${selectedShow.name}</p>
          </div>
           <div>
-            <p>${selectedShow.language}</p>
+            <p>Language: ${selectedShow.language}</p>
             <p>${selectedShow.premiered}</p>
           </div>
-          <di>
-          <p>${selectedShow.runtime}</p>
-          <p>${selectedShow.rating.average}</p>
+        <div>
+          <p>Runtime: ${selectedShow.runtime}</p>
+          <p>Rating: ${selectedShow.rating.average}</p>
+          <h3>Comments</h3>
+          <span>${commentData.filter((data) => data.creation_date)[0].creation_date}</span>
+          <span>${commentData.filter((data) => data.username)[0].username}:</span>
+          <span>${commentData.filter((data) => data.comment)[0].comment}</span>
         </div>`;
   });
 };
@@ -52,6 +60,7 @@ const closePopUp = () => {
     }
     showsContainer.classList.remove('hide');
     popUp.classList.add('hide');
+    commentPopUp.classList.add('hide');
   });
 };
 

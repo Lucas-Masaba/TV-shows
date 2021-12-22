@@ -1,6 +1,5 @@
 // Unique identifier of the created app
 const appId = 'MYBVMigQRLz45iJjyYTt';
-
 const fetchTVAPI = async () => {
   const TVResponse = await fetch('https://api.tvmaze.com/shows');
   const getShowResult = await TVResponse.json();
@@ -25,4 +24,24 @@ const submitLike = async (newLike) => {
   });
 };
 
-export default { fetchTVAPI, fetchInvolvementAPI, submitLike };
+const fetchInvolvementAPIcomments = async (id) => {
+  const commentsResponse = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${appId}/comments?item_id=${id}`);
+  const getCommentResult = await commentsResponse.json();
+  return getCommentResult;
+};
+
+const submitComment = async (newComment) => {
+  await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${appId}/comments`, {
+    method: 'POST',
+    body: JSON.stringify({
+      item_id: newComment,
+    }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  });
+};
+
+export default {
+  fetchTVAPI, fetchInvolvementAPI, submitLike, fetchInvolvementAPIcomments, submitComment,
+};
