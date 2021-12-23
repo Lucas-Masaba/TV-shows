@@ -14,22 +14,32 @@ const headerLogo = () => {
   myIcon.src = tvm;
   return logo.append(myIcon);
 };
+/* eslint-disable no-use-before-define */
+const Likes = () => {
+  const likeButtons = document.getElementsByClassName('like-heart');
+  Array.from(likeButtons).forEach((likeButton) => {
+    likeButton.addEventListener('click', async (e) => {
+      await fetchData.submitLike(e.target.id);
+      displayShows();
+    });
+  });
+};
 
 const openPopUpWindow = () => {
-  const selector = '.comment-btn';
-  document.addEventListener('click', async (e) => {
-    const showData = await fetchData.fetchTVAPI();
-    const commentData = await fetchData.fetchInvolvementAPIcomments(e.target.id);
-    const el = e.target;
-    if (!el.matches(selector)) {
-      return;
-    }
-    showsContainer.classList.add('hide');
-    popUp.classList.remove('hide');
-    commentPopUp.classList.remove('hide');
-    const selectedShow = showData.filter((data) => data.id === Number(e.target.id))[0];
+  const commentButtons = document.getElementsByClassName('comment-btn');
+  Array.from(commentButtons).forEach((commentButton) => {
+    commentButton.addEventListener('click', async (e) => {
+      const showData = await fetchData.fetchTVAPI();
+      const targetId = e.target.id;
+      const commentData = await fetchData.fetchInvolvementAPIcomments(targetId);
+      showsContainer.classList.add('hide');
+      popUp.classList.remove('hide');
+      commentPopUp.classList.remove('hide');
+      const selectedShow = showData.filter(
+        (data) => data.id === Number(targetId),
+      )[0];
 
-    popUp.innerHTML = `<div class="display-show">
+      popUp.innerHTML = `<div class="display-show">
       <button type="button" data-close-button class="close-button">&times;</button>
          <div>  
          <img src="${selectedShow.image.medium}" alt="">
@@ -43,10 +53,45 @@ const openPopUpWindow = () => {
           <p>Runtime: ${selectedShow.runtime}</p>
           <p>Rating: ${selectedShow.rating.average}</p>
           <h3>Comments</h3>
-          <span>${commentData.filter((data) => data.creation_date)[0].creation_date}</span>
-          <span>${commentData.filter((data) => data.username)[0].username}:</span>
-          <span>${commentData.filter((data) => data.comment)[0].comment}</span>
+          
+          ${commentData
+    .map(
+      (data) => `<span>${data.creation_date} </span>
+      <span>${data.username}: </span>
+      <span>${data.comment}</span><br>`,
+    )
+    .join('')}
+          
+          <form action="#">
+          
+          <input id="${targetId}" class="name_input" type="text" placeholder="Your name" name="username">
+          <input id="${targetId}" class="insight_input" type="text" placeholder="Your insights" name="insights">
+          <p class="button_p"><button class="submit_button" id="${targetId}" type="button">Comment</button></p>
+        </form>
         </div>`;
+
+      const inputName = document.querySelector('.name_input');
+      const inputInsights = document.querySelector('.insight_input');
+
+      (function Comments() {
+        const selector3 = '.submit_button';
+        document.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const el = e.target;
+          if (!el.matches(selector3)) {
+            return;
+          }
+          await fetchData.submitComment(
+            inputInsights.value,
+            el.id,
+            inputName.value,
+          );
+          inputName.value = '';
+          inputInsights.value = '';
+          displayShows();
+        });
+      }());
+    });
   });
 };
 
@@ -78,9 +123,13 @@ export const displayShows = async () => {
     .map(
       (result) => `<div class="display-show">
     <img src="${result.image.medium}" alt="">
-    <p>${result.name} <a id=${result.id} class="like-heart" href="#">&#9825;</a></p>
+    <p>${result.name} <a id=${
+  result.id
+} class="like-heart" href="#">&#9825;</a></p>
     <p>${
-  involveData.filter((like) => parseInt(like.item_id, 10) === parseInt(result.id, 10))[0].likes
+  involveData.filter(
+    (like) => parseInt(like.item_id, 10) === parseInt(result.id, 10),
+  )[0].likes
 } likes</p>
     <button id=${result.id} class="comment-btn">Comments</button>
     </div>`,
@@ -91,18 +140,7 @@ export const displayShows = async () => {
   openPopUpWindow();
   closePopUp();
   showCount();
+  Likes();
 };
-
-(function Likes() {
-  const selector = '.like-heart';
-  document.addEventListener('click', async (e) => {
-    const el = e.target;
-    if (!el.matches(selector)) {
-      return;
-    }
-    await fetchData.submitLike(el.id);
-    displayShows();
-  });
-}());
 
 export default { headerLogo };
