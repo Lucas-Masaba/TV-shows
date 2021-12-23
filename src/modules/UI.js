@@ -1,6 +1,6 @@
 import fetchData from './APIhandler.js';
 import tvm from './tvm_api.png';
-/* eslint-disable no-unused-expressions, no-use-before-define */
+
 const logo = document.querySelector('.logo');
 const displayListOfShows = document.querySelector('.display-list-of-shows');
 const showCounter = document.querySelector('.show-counter');
@@ -14,26 +14,32 @@ const headerLogo = () => {
   myIcon.src = tvm;
   return logo.append(myIcon);
 };
+/* eslint-disable no-use-before-define */
+const Likes = () => {
+  const likeButtons = document.getElementsByClassName('like-heart');
+  Array.from(likeButtons).forEach((likeButton) => {
+    likeButton.addEventListener('click', async (e) => {
+      await fetchData.submitLike(e.target.id);
+      displayShows();
+    });
+  });
+};
 
 const openPopUpWindow = () => {
-  const selector = '.comment-btn';
-  document.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const showData = await fetchData.fetchTVAPI();
-    const targetId = e.target.id;
-    const commentData = await fetchData.fetchInvolvementAPIcomments(targetId);
-    const el = e.target;
-    if (!el.matches(selector)) {
-      return;
-    }
-    showsContainer.classList.add('hide');
-    popUp.classList.remove('hide');
-    commentPopUp.classList.remove('hide');
-    const selectedShow = showData.filter(
-      (data) => data.id === Number(targetId),
-    )[0];
+  const commentButtons = document.getElementsByClassName('comment-btn');
+  Array.from(commentButtons).forEach((commentButton) => {
+    commentButton.addEventListener('click', async (e) => {
+      const showData = await fetchData.fetchTVAPI();
+      const targetId = e.target.id;
+      const commentData = await fetchData.fetchInvolvementAPIcomments(targetId);
+      showsContainer.classList.add('hide');
+      popUp.classList.remove('hide');
+      commentPopUp.classList.remove('hide');
+      const selectedShow = showData.filter(
+        (data) => data.id === Number(targetId),
+      )[0];
 
-    popUp.innerHTML = `<div class="display-show">
+      popUp.innerHTML = `<div class="display-show">
       <button type="button" data-close-button class="close-button">&times;</button>
          <div>  
          <img src="${selectedShow.image.medium}" alt="">
@@ -50,11 +56,13 @@ const openPopUpWindow = () => {
           
           ${commentData
     .map(
-      (data) => `<span>${data.creation_date} </span><span>${data.username}: </span><span>${data.comment}</span><br>`,
-    ).join('')
-}
+      (data) => `<span>${data.creation_date} </span>
+      <span>${data.username}: </span>
+      <span>${data.comment}</span><br>`,
+    )
+    .join('')}
           
-          <form action="/">
+          <form action="#">
           
           <input id="${targetId}" class="name_input" type="text" placeholder="Your name" name="username">
           <input id="${targetId}" class="insight_input" type="text" placeholder="Your insights" name="insights">
@@ -62,27 +70,28 @@ const openPopUpWindow = () => {
         </form>
         </div>`;
 
-    const inputName = document.querySelector('.name_input');
-    const inputInsights = document.querySelector('.insight_input');
+      const inputName = document.querySelector('.name_input');
+      const inputInsights = document.querySelector('.insight_input');
 
-    (function Comments() {
-      const selector3 = '.submit_button';
-      document.addEventListener('click', async (e) => {
-        e.preventDefault;
-        const el = e.target;
-        if (!el.matches(selector3)) {
-          return;
-        }
-        await fetchData.submitComment(
-          inputInsights.value,
-          el.id,
-          inputName.value,
-        );
-        inputName.value = '';
-        inputInsights.value = '';
-        displayShows();
-      });
-    }());
+      (function Comments() {
+        const selector3 = '.submit_button';
+        document.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const el = e.target;
+          if (!el.matches(selector3)) {
+            return;
+          }
+          await fetchData.submitComment(
+            inputInsights.value,
+            el.id,
+            inputName.value,
+          );
+          inputName.value = '';
+          inputInsights.value = '';
+          displayShows();
+        });
+      }());
+    });
   });
 };
 
@@ -131,18 +140,7 @@ export const displayShows = async () => {
   openPopUpWindow();
   closePopUp();
   showCount();
+  Likes();
 };
-
-(function Likes() {
-  const selector = '.like-heart';
-  document.addEventListener('click', async (e) => {
-    const el = e.target;
-    if (!el.matches(selector)) {
-      return;
-    }
-    await fetchData.submitLike(el.id);
-    displayShows();
-  });
-}());
 
 export default { headerLogo };
