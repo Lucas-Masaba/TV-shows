@@ -2,6 +2,10 @@
   font-family: 'Poppins', sans-serif;
 }
 
+main {
+  background: #dfdfde;
+}
+
 .header-list {
   display: flex;
   justify-content: space-evenly;
@@ -21,14 +25,68 @@
 }
 
 .display-list-of-shows {
+  max-width: 82%;
   display: flex;
   flex-wrap: wrap;
-  margin: 0 10%;
+}
+
+.shows-container {
+  display: flex;
+  justify-content: center;
 }
 
 .display-show {
-  width: 33%;
-  padding-bottom: 40px;
+  margin: 12px;
+  background-color: white;
+  padding: 8px;
+}
+
+.display-show img {
+  width: 400px;
+  height: 500px;
+}
+
+.comment-btn {
+  width: 100%;
+}
+
+.close-button {
+  border: none;
+  background: none;
+  font-size: 35px;
+  float: right;
+  color: indianred;
+}
+
+.pop-up {
+  display: flex;
+  justify-content: center;
+}
+
+.pop-up-img {
+  width: 40%;
+}
+
+.pop-up-img img {
+  width: 300px;
+  height: 400px;
+}
+
+.display-popup-show {
+  width: 80%;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.like-comment-btns span {
+  font-size: 25px;
+}
+
+.show-title {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  font-size: 22px;
 }
 
 .like-heart {
@@ -39,10 +97,6 @@ footer {
   border: solid #000 1px;
   padding-left: 2%;
   font-weight: bold;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
 
 .hide {
