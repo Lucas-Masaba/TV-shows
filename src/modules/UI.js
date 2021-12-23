@@ -18,6 +18,7 @@ const headerLogo = () => {
 const openPopUpWindow = () => {
   const selector = ".comment-btn";
   document.addEventListener("click", async (e) => {
+    e.preventDefault();
     const showData = await fetchData.fetchTVAPI();
     const targetId = e.target.id;
     const commentData = await fetchData.fetchInvolvementAPIcomments(targetId);
@@ -46,13 +47,13 @@ const openPopUpWindow = () => {
           <p>Runtime: ${selectedShow.runtime}</p>
           <p>Rating: ${selectedShow.rating.average}</p>
           <h3>Comments</h3>
-          <span>${
-            commentData.filter((data) => data.creation_date)[0].creation_date
-          }</span>
-          <span>${
-            commentData.filter((data) => data.username)[0].username
-          }:</span>
-          <span>${commentData.filter((data) => data.comment)[0].comment}</span>
+          
+          ${commentData
+            .map(
+              (data) =>
+                `<span>${data.creation_date} </span><span>${data.username}: </span><span>${data.comment}</span><br>`).join("")
+            }
+          
           <form action="/">
           
           <input id="${targetId}" class="name_input" type="text" placeholder="Your name" name="username">
@@ -61,16 +62,27 @@ const openPopUpWindow = () => {
         </form>
         </div>`;
 
-        // const valued = commentData.map((data) => {
-        //   `<span>${
-        //     data.creation_date
-        //   }</span>
-        //   <span>${
-        //     data.username
-        //   }:</span>
-        //   <span>${data.comment}</span>`
-        // }).join();
-        // commentPopUp.append(valued)
+    const inputName = document.querySelector(".name_input");
+    const inputInsights = document.querySelector(".insight_input");
+
+    (function Comments() {
+      const selector3 = ".submit_button";
+      document.addEventListener("click", async (e) => {
+        e.preventDefault;
+        const el = e.target;
+        if (!el.matches(selector3)) {
+          return;
+        }
+        await fetchData.submitComment(
+          inputInsights.value,
+          el.id,
+          inputName.value
+        );
+        inputName.value = "";
+        inputInsights.value = "";
+        displayShows();
+      });
+    })();
   });
 };
 
@@ -129,21 +141,6 @@ export const displayShows = async () => {
       return;
     }
     await fetchData.submitLike(el.id);
-    displayShows();
-  });
-})();
-
-(function Comments() {
-  const selector3 = ".submit_button";
-  const inputName = ".name_input";
-  const inputInsights = ".insight_input";
-  document.addEventListener("click", async (e) => {
-    const el = e.target;
-    if (!el.matches(selector3)) {
-      return;
-    }
-    await fetchData.submitComment(inputInsights.value, el.id, inputName.value);
-
     displayShows();
   });
 })();

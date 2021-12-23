@@ -36,7 +36,7 @@ const submitComment = async (newComment, theId, newName) => {
       item_id: theId,
       username: newName,
       comment: newComment,
-      
+
     }),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
