@@ -10,4 +10,4 @@ const showCount = async () => {
 //   return result.data.length;
 // };
 
-module.exports = { showCount};
+module.exports = { showCount };
