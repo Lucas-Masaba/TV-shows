@@ -1,6 +1,5 @@
 const axios = require('axios');
 const counter = require('./counter.js');
-
 jest.mock('axios');
 
 axios
@@ -12,4 +11,15 @@ describe('test the count', () => {
     const result = await counter.showCount();
     expect(result).toBe(6);
   });
+  // test('comments', async () => {
+  //   const result = await counter.commentCounter();
+  //   expect(result).toBe(6)
+  // })
 });
+
+// describe('comment counter tests', () => {
+//   test('comments', async () => {
+//     const result = await counter.commentCounter();
+//     expect(result).toBe(6)
+//   })
+// })
