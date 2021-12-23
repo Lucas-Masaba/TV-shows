@@ -1,13 +1,13 @@
-import fetchData from './APIhandler.js';
-import tvm from './tvm_api.png';
+import fetchData from "./APIhandler.js";
+import tvm from "./tvm_api.png";
 
-const logo = document.querySelector('.logo');
-const displayListOfShows = document.querySelector('.display-list-of-shows');
-const showCounter = document.querySelector('.show-counter');
+const logo = document.querySelector(".logo");
+const displayListOfShows = document.querySelector(".display-list-of-shows");
+const showCounter = document.querySelector(".show-counter");
 
-const popUp = document.querySelector('.pop-up');
-const commentPopUp = document.querySelector('.comment');
-const showsContainer = document.querySelector('.shows-container');
+const popUp = document.querySelector(".pop-up");
+const commentPopUp = document.querySelector(".comment");
+const showsContainer = document.querySelector(".shows-container");
 
 const headerLogo = () => {
   const myIcon = new Image();
@@ -16,18 +16,21 @@ const headerLogo = () => {
 };
 
 const openPopUpWindow = () => {
-  const selector = '.comment-btn';
-  document.addEventListener('click', async (e) => {
+  const selector = ".comment-btn";
+  document.addEventListener("click", async (e) => {
     const showData = await fetchData.fetchTVAPI();
-    const commentData = await fetchData.fetchInvolvementAPIcomments(e.target.id);
+    const targetId = e.target.id;
+    const commentData = await fetchData.fetchInvolvementAPIcomments(targetId);
     const el = e.target;
     if (!el.matches(selector)) {
       return;
     }
-    showsContainer.classList.add('hide');
-    popUp.classList.remove('hide');
-    commentPopUp.classList.remove('hide');
-    const selectedShow = showData.filter((data) => data.id === Number(e.target.id))[0];
+    showsContainer.classList.add("hide");
+    popUp.classList.remove("hide");
+    commentPopUp.classList.remove("hide");
+    const selectedShow = showData.filter(
+      (data) => data.id === Number(targetId)
+    )[0];
 
     popUp.innerHTML = `<div class="display-show">
       <button type="button" data-close-button class="close-button">&times;</button>
@@ -43,24 +46,45 @@ const openPopUpWindow = () => {
           <p>Runtime: ${selectedShow.runtime}</p>
           <p>Rating: ${selectedShow.rating.average}</p>
           <h3>Comments</h3>
-          <span>${commentData.filter((data) => data.creation_date)[0].creation_date}</span>
-          <span>${commentData.filter((data) => data.username)[0].username}:</span>
+          <span>${
+            commentData.filter((data) => data.creation_date)[0].creation_date
+          }</span>
+          <span>${
+            commentData.filter((data) => data.username)[0].username
+          }:</span>
           <span>${commentData.filter((data) => data.comment)[0].comment}</span>
+          <form action="/">
+          
+          <input id="${targetId}" class="name_input" type="text" placeholder="Your name" name="username">
+          <input id="${targetId}" class="insight_input" type="text" placeholder="Your insights" name="insights">
+          <p class="button_p"><button class="submit_button" id="${targetId}" type="button">Comment</button></p>
+        </form>
         </div>`;
+
+        // const valued = commentData.map((data) => {
+        //   `<span>${
+        //     data.creation_date
+        //   }</span>
+        //   <span>${
+        //     data.username
+        //   }:</span>
+        //   <span>${data.comment}</span>`
+        // }).join();
+        // commentPopUp.append(valued)
   });
 };
 
 const closePopUp = () => {
-  const selector2 = '.close-button';
+  const selector2 = ".close-button";
 
-  document.addEventListener('click', async (e) => {
+  document.addEventListener("click", async (e) => {
     const el = e.target;
     if (!el.matches(selector2)) {
       return;
     }
-    showsContainer.classList.remove('hide');
-    popUp.classList.add('hide');
-    commentPopUp.classList.add('hide');
+    showsContainer.classList.remove("hide");
+    popUp.classList.add("hide");
+    commentPopUp.classList.add("hide");
   });
 };
 
@@ -78,14 +102,18 @@ export const displayShows = async () => {
     .map(
       (result) => `<div class="display-show">
     <img src="${result.image.medium}" alt="">
-    <p>${result.name} <a id=${result.id} class="like-heart" href="#">&#9825;</a></p>
+    <p>${result.name} <a id=${
+        result.id
+      } class="like-heart" href="#">&#9825;</a></p>
     <p>${
-  involveData.filter((like) => parseInt(like.item_id, 10) === parseInt(result.id, 10))[0].likes
-} likes</p>
+      involveData.filter(
+        (like) => parseInt(like.item_id, 10) === parseInt(result.id, 10)
+      )[0].likes
+    } likes</p>
     <button id=${result.id} class="comment-btn">Comments</button>
-    </div>`,
+    </div>`
     )
-    .join('');
+    .join("");
 
   displayListOfShows.innerHTML = values;
   openPopUpWindow();
@@ -94,8 +122,8 @@ export const displayShows = async () => {
 };
 
 (function Likes() {
-  const selector = '.like-heart';
-  document.addEventListener('click', async (e) => {
+  const selector = ".like-heart";
+  document.addEventListener("click", async (e) => {
     const el = e.target;
     if (!el.matches(selector)) {
       return;
@@ -103,6 +131,21 @@ export const displayShows = async () => {
     await fetchData.submitLike(el.id);
     displayShows();
   });
-}());
+})();
+
+(function Comments() {
+  const selector3 = ".submit_button";
+  const inputName = ".name_input";
+  const inputInsights = ".insight_input";
+  document.addEventListener("click", async (e) => {
+    const el = e.target;
+    if (!el.matches(selector3)) {
+      return;
+    }
+    await fetchData.submitComment(inputInsights.value, el.id, inputName.value);
+
+    displayShows();
+  });
+})();
 
 export default { headerLogo };

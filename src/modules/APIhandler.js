@@ -1,4 +1,3 @@
-// Unique identifier of the created app
 const appId = 'MYBVMigQRLz45iJjyYTt';
 const fetchTVAPI = async () => {
   const TVResponse = await fetch('https://api.tvmaze.com/shows');
@@ -30,11 +29,14 @@ const fetchInvolvementAPIcomments = async (id) => {
   return getCommentResult;
 };
 
-const submitComment = async (newComment) => {
+const submitComment = async (newComment, theId, newName) => {
   await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/${appId}/comments`, {
     method: 'POST',
     body: JSON.stringify({
-      item_id: newComment,
+      item_id: theId,
+      username: newName,
+      comment: newComment,
+      
     }),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
