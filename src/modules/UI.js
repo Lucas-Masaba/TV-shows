@@ -25,6 +25,8 @@ const Likes = () => {
   });
 };
 
+const commentCounter = (commentData) => commentData.length;
+
 const openPopUpWindow = () => {
   const commentButtons = document.getElementsByClassName('comment-btn');
   Array.from(commentButtons).forEach((commentButton) => {
@@ -52,8 +54,7 @@ const openPopUpWindow = () => {
         <div>
           <p>Runtime: ${selectedShow.runtime}</p>
           <p>Rating: ${selectedShow.rating.average}</p>
-          <h3>Comments</h3>
-          
+          <h3>Comments(${commentCounter(commentData)})</h3>         
           ${commentData
     .map(
       (data) => `<span>${data.creation_date} </span>
