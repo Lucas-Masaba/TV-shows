@@ -1,6 +1,6 @@
 import fetchData from './APIhandler.js';
 import tvm from './tvm_api.png';
-
+/* eslint-disable no-unused-expressions, no-use-before-define */
 const logo = document.querySelector('.logo');
 const displayListOfShows = document.querySelector('.display-list-of-shows');
 const showCounter = document.querySelector('.show-counter');
