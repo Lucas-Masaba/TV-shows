@@ -25,9 +25,33 @@ const Likes = () => {
   });
 };
 
-const commentCounter = (commentData) => commentData.length;
+const commentCounter =  (commentData) =>  commentData.length;
 
-const openPopUpWindow = () => {
+const comments = () => {
+  const inputName = document.querySelector('.name_input');
+  const inputInsights = document.querySelector('.insight_input');
+  const selector3 = '.submit_button';
+  document.addEventListener('click', async (e) => {          
+    const el = e.target;
+    e.preventDefault();
+    if (!el.matches(selector3)) {
+      return;
+    }
+    
+    if(inputInsights.value !== '' && inputName.value !== ''){
+      await fetchData.submitComment(
+        inputInsights.value,
+        el.id,
+        inputName.value,
+      );
+    }
+    inputName.value = '';
+    inputInsights.value = '';
+    openPopUpWindow();
+  });
+};
+
+const openPopUpWindow = () => {  
   const commentButtons = document.getElementsByClassName('comment-btn');
   Array.from(commentButtons).forEach((commentButton) => {
     commentButton.addEventListener('click', async (e) => {
@@ -54,7 +78,7 @@ const openPopUpWindow = () => {
         <div>
           <p>Runtime: ${selectedShow.runtime}</p>
           <p>Rating: ${selectedShow.rating.average}</p>
-          <h3>Comments(${commentCounter(commentData)})</h3>         
+          <h3>Comments(${ commentCounter(commentData)})</h3>         
           ${commentData
     .map(
       (data) => `<span>${data.creation_date} </span>
@@ -64,37 +88,17 @@ const openPopUpWindow = () => {
     .join('')}
           
           <form action="#">
-          
-          <input id="${targetId}" class="name_input" type="text" placeholder="Your name" name="username">
-          <input id="${targetId}" class="insight_input" type="text" placeholder="Your insights" name="insights">
-          <p class="button_p"><button class="submit_button" id="${targetId}" type="button">Comment</button></p>
+          <input required id="${targetId}" class="name_input" type="text" placeholder="Your name" name="username">
+          <input required id="${targetId}" class="insight_input" type="text" placeholder="Your insights" name="insights">
+          <p class="button_p"><button class="submit_button"  id="${targetId}" type="button">Comment</button></p>
         </form>
-        </div>`;
-
-      const inputName = document.querySelector('.name_input');
-      const inputInsights = document.querySelector('.insight_input');
-
-      (function Comments() {
-        const selector3 = '.submit_button';
-        document.addEventListener('click', async (e) => {
-          e.preventDefault();
-          const el = e.target;
-          if (!el.matches(selector3)) {
-            return;
-          }
-          await fetchData.submitComment(
-            inputInsights.value,
-            el.id,
-            inputName.value,
-          );
-          inputName.value = '';
-          inputInsights.value = '';
-          displayShows();
-        });
-      }());
+        </div>`; 
+        comments();
     });
   });
 };
+
+
 
 const closePopUp = () => {
   const selector2 = '.close-button';
@@ -138,6 +142,7 @@ export const displayShows = async () => {
     .join('');
 
   displayListOfShows.innerHTML = values;
+
   openPopUpWindow();
   closePopUp();
   showCount();
