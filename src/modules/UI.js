@@ -80,12 +80,14 @@ const openPopUpWindow = () => {
         (data) => data.id === Number(targetId),
       )[0];
 
-      popUp.innerHTML = `<div class="display-show">
-      <button type="button" data-close-button class="close-button">&times;</button>
-         <div>  
+      popUp.innerHTML = `<div class="display-popup-show">
+<p class='button_p'><button type="button" data-close-button class="close-button">&times;</button></p>
+         <div class="pop-up-img">  
          <img src="${selectedShow.image.medium}" alt="">
-           <p>${selectedShow.name}</p>
+           <h3>${selectedShow.name}</h3>
+           <p>${selectedShow.summary}</p>
          </div>
+         <div class="detail_container">
           <div>
             <p>Language: ${selectedShow.language}</p>
             <p>${selectedShow.premiered}</p>
@@ -93,6 +95,10 @@ const openPopUpWindow = () => {
         <div>
           <p>Runtime: ${selectedShow.runtime}</p>
           <p>Rating: ${selectedShow.rating.average}</p>
+        </div>
+        </div>
+        <hr>
+        <div class="comment_container">
           <h3 class="commnent-counter" >Comments(${commentCounter(
     commentData,
   )})</h3> 
@@ -106,11 +112,13 @@ const openPopUpWindow = () => {
       `,
     )
     .join('')}
+    </div>
+    <hr>
         </div>
           <form action="#">
           <input id="${targetId}" class="name_input" type="text" placeholder="Your name" name="username" required>
           <input id="${targetId}" class="insight_input" type="text" placeholder="Your insights" name="insights" required>
-          <p class="button_p"><button class="submit_button"  id="${targetId}" type="submit">Comment</button></p>
+          <p class="button_p"><button class="submit_button btn btn-secondary comment-btn"  id="${targetId}" type="submit">Comment</button></p>
         </form>
         </div>`;
       comments();
