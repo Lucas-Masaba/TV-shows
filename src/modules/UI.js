@@ -27,6 +27,45 @@ const Likes = () => {
 
 const commentCounter = (commentData) => commentData.length;
 
+const comments = () => {
+  const inputName = document.querySelector('.name_input');
+  const inputInsights = document.querySelector('.insight_input');
+  const selector3 = '.submit_button';
+  const commentCounterContainer = document.querySelector('.commnent-counter');
+  const commentContainer = document.querySelector('.comments-container');
+  document.addEventListener('click', async (e) => {
+    const el = e.target;
+    e.preventDefault();
+    if (!el.matches(selector3)) {
+      return;
+    }
+
+    if (inputInsights.value !== '' && inputName.value !== '') {
+      await fetchData.submitComment(
+        inputInsights.value,
+        el.id,
+        inputName.value,
+      );
+
+      let commentNumber = parseInt(
+        commentCounterContainer.innerHTML.slice(9),
+        10,
+      );
+      commentNumber += 1;
+      commentCounterContainer.innerHTML = `Comments(${commentNumber})`;
+      const comment = document.createElement('div');
+      comment.innerHTML = `
+        <span>${new Date().toISOString().split('T')[0]}</span>
+        <span>${inputName.value}</span>
+        <span>${inputInsights.value}</span>
+      `;
+      commentContainer.append(comment);
+      inputName.value = '';
+      inputInsights.value = '';
+    }
+  });
+};
+
 const openPopUpWindow = () => {
   const commentButtons = document.getElementsByClassName('comment-btn');
   Array.from(commentButtons).forEach((commentButton) => {
@@ -41,10 +80,10 @@ const openPopUpWindow = () => {
         (data) => data.id === Number(targetId),
       )[0];
 
-      popUp.innerHTML = `<div class="display-popup-show">
+      popUp.innerHTML = `<div class="display-show">
       <button type="button" data-close-button class="close-button">&times;</button>
-         <div class="pop-up-img">  
-         <img src="${selectedShow.image.original}" alt="">
+         <div>  
+         <img src="${selectedShow.image.medium}" alt="">
            <p>${selectedShow.name}</p>
          </div>
           <div>
@@ -54,43 +93,27 @@ const openPopUpWindow = () => {
         <div>
           <p>Runtime: ${selectedShow.runtime}</p>
           <p>Rating: ${selectedShow.rating.average}</p>
-          <h3>Comments(${commentCounter(commentData)})</h3>         
+          <h3 class="commnent-counter" >Comments(${commentCounter(
+    commentData,
+  )})</h3> 
+          <div class="comments-container">        
           ${commentData
     .map(
-      (data) => `<span>${data.creation_date} </span>
-      <span>${data.username}: </span>
-      <span>${data.comment}</span><br>`,
+      (data) => `
+        <span>${data.creation_date} </span>
+        <span>${data.username}: </span>
+        <span>${data.comment}</span><br>
+      `,
     )
     .join('')}
-          
+        </div>
           <form action="#">
-          <input required id="${targetId}" class="name_input" type="text" placeholder="Your name" name="username">
-          <input required id="${targetId}" class="insight_input" type="text" placeholder="Your insights" name="insights">
-          <p class="button_p"><button class="submit_button"  id="${targetId}" type="button">Comment</button></p>
+          <input id="${targetId}" class="name_input" type="text" placeholder="Your name" name="username" required>
+          <input id="${targetId}" class="insight_input" type="text" placeholder="Your insights" name="insights" required>
+          <p class="button_p"><button class="submit_button"  id="${targetId}" type="submit">Comment</button></p>
         </form>
         </div>`;
-
-      const inputName = document.querySelector('.name_input');
-      const inputInsights = document.querySelector('.insight_input');
-
-      (function Comments() {
-        const selector3 = '.submit_button';
-        document.addEventListener('click', async (e) => {
-          e.preventDefault();
-          const el = e.target;
-          if (!el.matches(selector3)) {
-            return;
-          }
-          await fetchData.submitComment(
-            inputInsights.value,
-            el.id,
-            inputName.value,
-          );
-          inputName.value = '';
-          inputInsights.value = '';
-          displayShows();
-        });
-      }());
+      comments();
     });
   });
 };
@@ -133,7 +156,9 @@ export const displayShows = async () => {
 } likes
     </span>
     </p>
-    <button id=${result.id} class="btn btn-secondary comment-btn">Comments</button>
+    <button id=${
+  result.id
+} class="btn btn-secondary comment-btn">Comments</button>
     </div>`,
     )
     .join('');
