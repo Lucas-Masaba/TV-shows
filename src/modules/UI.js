@@ -94,7 +94,7 @@ const openPopUpWindow = () => {
           </div>
         <div>
           <p><strong>Runtime: </strong>${selectedShow.runtime}</p>
-          <p><strong>Rating: </strong>${selectedShow.rating.average}</p>
+          <p><strong >Rating: </strong>${selectedShow.rating.average}</p>
         </div>
         </div>
         <hr>
