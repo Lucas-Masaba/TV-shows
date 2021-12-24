@@ -25,33 +25,48 @@ const Likes = () => {
   });
 };
 
-const commentCounter =  (commentData) =>  commentData.length;
+const commentCounter = (commentData) => commentData.length;
 
 const comments = () => {
   const inputName = document.querySelector('.name_input');
   const inputInsights = document.querySelector('.insight_input');
   const selector3 = '.submit_button';
-  document.addEventListener('click', async (e) => {          
+  const commentCounterContainer = document.querySelector('.commnent-counter');
+  const commentContainer = document.querySelector('.comments-container');
+  document.addEventListener('click', async (e) => {
     const el = e.target;
     e.preventDefault();
     if (!el.matches(selector3)) {
       return;
     }
-    
-    if(inputInsights.value !== '' && inputName.value !== ''){
+
+    if (inputInsights.value !== '' && inputName.value !== '') {
       await fetchData.submitComment(
         inputInsights.value,
         el.id,
         inputName.value,
       );
+
+      let commentNumber = parseInt(
+        commentCounterContainer.innerHTML.slice(9),
+        10,
+      );
+      commentNumber += 1;
+      commentCounterContainer.innerHTML = `Comments(${commentNumber})`;
+      const comment = document.createElement('div');
+      comment.innerHTML = `
+        <span>${new Date().toISOString().split('T')[0]}</span>
+        <span>${inputName.value}</span>
+        <span>${inputInsights.value}</span>
+      `;
+      commentContainer.append(comment);
+      inputName.value = '';
+      inputInsights.value = '';
     }
-    inputName.value = '';
-    inputInsights.value = '';
-    openPopUpWindow();
   });
 };
 
-const openPopUpWindow = () => {  
+const openPopUpWindow = () => {
   const commentButtons = document.getElementsByClassName('comment-btn');
   Array.from(commentButtons).forEach((commentButton) => {
     commentButton.addEventListener('click', async (e) => {
@@ -78,27 +93,30 @@ const openPopUpWindow = () => {
         <div>
           <p>Runtime: ${selectedShow.runtime}</p>
           <p>Rating: ${selectedShow.rating.average}</p>
-          <h3>Comments(${ commentCounter(commentData)})</h3>         
+          <h3 class="commnent-counter" >Comments(${commentCounter(
+    commentData,
+  )})</h3> 
+          <div class="comments-container">        
           ${commentData
     .map(
-      (data) => `<span>${data.creation_date} </span>
-      <span>${data.username}: </span>
-      <span>${data.comment}</span><br>`,
+      (data) => `
+        <span>${data.creation_date} </span>
+        <span>${data.username}: </span>
+        <span>${data.comment}</span><br>
+      `,
     )
     .join('')}
-          
+        </div>
           <form action="#">
-          <input required id="${targetId}" class="name_input" type="text" placeholder="Your name" name="username">
-          <input required id="${targetId}" class="insight_input" type="text" placeholder="Your insights" name="insights">
-          <p class="button_p"><button class="submit_button"  id="${targetId}" type="button">Comment</button></p>
+          <input id="${targetId}" class="name_input" type="text" placeholder="Your name" name="username" required>
+          <input id="${targetId}" class="insight_input" type="text" placeholder="Your insights" name="insights" required>
+          <p class="button_p"><button class="submit_button"  id="${targetId}" type="submit">Comment</button></p>
         </form>
-        </div>`; 
-        comments();
+        </div>`;
+      comments();
     });
   });
 };
-
-
 
 const closePopUp = () => {
   const selector2 = '.close-button';
@@ -127,16 +145,20 @@ export const displayShows = async () => {
   const values = showData
     .map(
       (result) => `<div class="display-show">
-    <img src="${result.image.medium}" alt="">
-    <p>${result.name} <a id=${
-  result.id
-} class="like-heart" href="#">&#9825;</a></p>
-    <p>${
+    <img src="${result.image.original}" alt="">
+    <p class="show-title">${result.name}
+    <span>
+    <a id=${result.id} class="like-heart" href="#">&#9825;</a>
+    ${
   involveData.filter(
     (like) => parseInt(like.item_id, 10) === parseInt(result.id, 10),
   )[0].likes
-} likes</p>
-    <button id=${result.id} class="comment-btn">Comments</button>
+} likes
+    </span>
+    </p>
+    <button id=${
+  result.id
+} class="btn btn-secondary comment-btn">Comments</button>
     </div>`,
     )
     .join('');
