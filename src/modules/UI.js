@@ -83,7 +83,7 @@ const openPopUpWindow = () => {
       popUp.innerHTML = `<div class="display-popup-show">
 <p class='button_p'><button type="button" data-close-button class="close-button">&times;</button></p>
          <div class="pop-up-img">  
-         <img src="${selectedShow.image.medium}" alt="">
+         <img src="${selectedShow.image.original}" alt="">
            <h3>${selectedShow.name}</h3>
            <p>${selectedShow.summary}</p>
          </div>
