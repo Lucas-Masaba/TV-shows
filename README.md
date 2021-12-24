@@ -1,6 +1,8 @@
-# Leaderboard
+# TV Shows
 
-> Leaderboard
+> TV Shows
+
+This project is about displaying TV Shows and allows users to like and put comment about that show. 
 
 ### Here is a desktop preview
 ![screenshot](/screenshot.png)
