@@ -89,12 +89,12 @@ const openPopUpWindow = () => {
          </div>
          <div class="detail_container">
           <div>
-            <p>Language: ${selectedShow.language}</p>
-            <p>${selectedShow.premiered}</p>
+            <p><strong>Language: </strong> ${selectedShow.language}</p>
+            <p><strong>Premiered: </strong> ${selectedShow.premiered}</p>
           </div>
         <div>
-          <p>Runtime: ${selectedShow.runtime}</p>
-          <p>Rating: ${selectedShow.rating.average}</p>
+          <p><strong>Runtime: </strong>${selectedShow.runtime}</p>
+          <p><strong>Rating: </strong>${selectedShow.rating.average}</p>
         </div>
         </div>
         <hr>
