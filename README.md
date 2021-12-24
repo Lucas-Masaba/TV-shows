@@ -39,6 +39,9 @@ After you have copied the link, enter the command below in your terminal
 - To view the website on your local host, run this in your terminal, <br>
 `npm run start`
 
+## Video recording
+
+- Here is the [video](https://drive.google.com/file/d/1jiCxhbTxNj7t1zAezw9bfVnQa5vFhL1e/view?usp=sharing) recording for the project presentation 
 
 ## Authors
 
