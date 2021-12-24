@@ -13,7 +13,7 @@
 - Web-Pack
 
 ## Want To See It Online
-[Here](https://lucas-masaba.github.io/TV-shows/dist) is a link to the online view of my website
+[Here](https://lucas-masaba.github.io/TV-shows/src) is a link to the online view of my website
 
 ## Getting Started
 
